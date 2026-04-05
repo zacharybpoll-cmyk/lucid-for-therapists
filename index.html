@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucid — $78,000/year for group therapy practices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #5B8DB8;
+  --blue-dark: #4a7aa3;
+  --dark: #1a1d21;
+  --body: #5a6270;
+  --light: #f5f7f9;
+  --border: #e4e8ec;
+  --white: #ffffff;
+  --green: #16a34a;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: var(--body); background: var(--white); }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--dark); text-decoration: none; }
+.nav-logo span { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); margin-left: 2px; vertical-align: middle; position: relative; top: -1px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--body); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--dark); }
+.nav-cta { background: var(--blue); color: var(--white); font-size: 0.875rem; font-weight: 600; padding: 9px 22px; border-radius: 100px; text-decoration: none; transition: background 0.15s; }
+.nav-cta:hover { background: var(--blue-dark); }
+
+/* NAV DROPDOWN */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown > a {
+  cursor: pointer;
+}
+.nav-dropdown > a::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-right: 1.5px solid var(--body);
+  border-bottom: 1.5px solid var(--body);
+  transform: rotate(45deg);
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+  transition: transform 0.15s;
+}
+.nav-dropdown:hover > a::after {
+  transform: rotate(-135deg);
+}
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 6px 0;
+  min-width: 170px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s, visibility 0.15s;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+.nav-dropdown-menu a {
+  display: block;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--body);
+  text-decoration: none;
+  transition: background 0.1s, color 0.1s;
+}
+.nav-dropdown-menu a:hover {
+  background: var(--light);
+  color: var(--dark);
+}
+
+/* WORKFLOW SECTIONS */
+.workflow-section {
+  padding: 80px 0 64px;
+  border-top: 1px solid var(--border);
+}
+.workflow-section + .workflow-section {
+  border-top: none;
+  padding-top: 32px;
+}
+.workflow-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.workflow-header .eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+.workflow-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.workflow-header p {
+  font-size: 1.05rem;
+  color: var(--body);
+  max-width: 580px;
+  margin: 0 auto;
+}
+.workflow-steps {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.workflow-step {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 48px;
+  align-items: flex-start;
+}
+.workflow-step:last-child { margin-bottom: 0; }
+.step-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.step-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.step-content p {
+  font-size: 0.95rem;
+  color: var(--body);
+  line-height: 1.6;
+}
+.step-content .step-image {
+  margin-top: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  max-width: 100%;
+  height: auto;
+}
+.step-content .step-quote {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: var(--light);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+.workflow-divider {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 0;
+  text-align: center;
+}
+.workflow-divider hr {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* HERO */
+.hero { padding: 80px 0 72px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.hero-eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; }
+.hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; color: var(--dark); margin-bottom: 16px; letter-spacing: -0.02em; }
+.hero-sub-number { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 20px; }
+.hero-body { font-size: 1.05rem; line-height: 1.7; color: var(--body); margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 16px; align-items: center; margin-bottom: 36px; flex-wrap: wrap; }
+.btn-primary { background: var(--blue); color: var(--white); font-size: 0.95rem; font-weight: 600; padding: 13px 28px; border-radius: 100px; text-decoration: none; transition: background 0.15s; white-space: nowrap; }
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-ghost { color: var(--dark); font-size: 0.95rem; font-weight: 500; text-decoration: none; border-bottom: 1.5px solid var(--border); padding-bottom: 2px; transition: border-color 0.15s; }
+.btn-ghost:hover { border-color: var(--dark); }
+.trust-strip { display: flex; flex-wrap: wrap; gap: 16px 24px; }
+.trust-item { font-size: 0.8rem; font-weight: 500; color: var(--body); display: flex; align-items: center; gap: 6px; }
+.trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+/* Hero image */
+.hero-img-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+.browser-bar { background: #f0f2f4; padding: 10px 16px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--border); }
+.b-dot { width: 10px; height: 10px; border-radius: 50%; }
+.hero-app-img { width: 100%; display: block; }
+
+/* PRACTICE MATH STRIP */
+.math-strip { background: var(--dark); padding: 40px 0; }
+.math-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.08); }
+.math-cell { padding: 28px 24px; text-align: center; background: var(--dark); }
+.math-num { font-size: 2rem; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 4px; }
+.math-label { font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.55); letter-spacing: 0.03em; }
+.math-sub { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 4px; }
+
+/* HOW IT WORKS */
+.how-section { padding: 80px 0; background: var(--light); }
+.section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+.section-headline { font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 700; color: var(--dark); margin-bottom: 10px; letter-spacing: -0.02em; }
+.section-sub { font-size: 1rem; color: var(--body); max-width: 560px; margin-bottom: 48px; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.step-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+.step-num { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; color: var(--blue); margin-bottom: 16px; }
+.step-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; line-height: 1.35; }
+.step-body { font-size: 0.9rem; color: var(--body); line-height: 1.65; margin-bottom: 16px; }
+.step-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; color: var(--blue); background: rgba(91,141,184,0.1); padding: 4px 10px; border-radius: 100px; }
+
+/* CPT CODES */
+.cpt-section { padding: 80px 0; }
+.cpt-intro { font-size: 0.95rem; color: var(--body); max-width: 620px; margin-bottom: 32px; }
+.cpt-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 20px; }
+.cpt-table thead th { text-align: left; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #fff; background: var(--dark); padding: 12px 16px; }
+.cpt-table tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.cpt-table tbody tr:last-child td { border-bottom: none; }
+.cpt-table tbody tr:nth-child(even) td { background: var(--light); }
+.cpt-code { font-family: 'Inter', monospace; font-weight: 700; font-size: 0.95rem; color: var(--dark); white-space: nowrap; }
+.cpt-desc { color: var(--body); line-height: 1.5; }
+.cpt-amount { font-weight: 600; color: var(--dark); white-space: nowrap; }
+.cpt-when { color: var(--body); font-size: 0.85rem; }
+.cpt-footer-note { font-size: 0.85rem; color: var(--body); padding: 14px 16px; background: rgba(91,141,184,0.06); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; }
+
+/* SCREENSHOTS */
+.screenshots-section { padding: 80px 0; background: var(--light); }
+.screenshots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+.screenshot-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.screenshot-label { padding: 16px 20px 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--body); border-bottom: 1px solid var(--border); }
+.screenshot-img { width: 100%; display: block; }
+
+/* PER-CLINICIAN TABLE */
+.perclinician-section { padding: 80px 0; }
+.clinician-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 32px; margin-bottom: 20px; }
+.clinician-table thead th { text-align: left; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #fff; background: var(--dark); padding: 12px 16px; }
+.clinician-table tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.clinician-table tbody tr:last-child td { border-bottom: none; }
+.clinician-table tbody tr:nth-child(even) td { background: var(--light); }
+.clinician-table tfoot td { padding: 14px 16px; font-weight: 700; color: var(--dark); background: rgba(91,141,184,0.08); border-top: 2px solid var(--blue); }
+.highlight-num { font-weight: 700; color: var(--dark); }
+.roi-badge { display: inline-block; font-size: 0.75rem; font-weight: 700; color: var(--green); background: rgba(22,163,74,0.08); padding: 3px 8px; border-radius: 100px; }
+
+/* STUDY */
+.study-section { padding: 80px 0; background: var(--light); }
+.study-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.study-stat-row { display: flex; gap: 32px; margin: 32px 0; flex-wrap: wrap; }
+.study-stat { text-align: center; }
+.study-stat-num { font-size: 2rem; font-weight: 700; color: var(--dark); line-height: 1; margin-bottom: 4px; }
+.study-stat-label { font-size: 0.78rem; font-weight: 500; color: var(--body); }
+.study-finding { font-size: 0.9rem; color: var(--body); line-height: 1.7; margin-bottom: 12px; }
+.study-finding strong { color: var(--dark); }
+.study-citation-box { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-top: 24px; }
+.study-citation-box p { font-size: 0.85rem; line-height: 1.6; color: var(--body); }
+.study-citation-box a { color: var(--blue); text-decoration: none; font-weight: 500; }
+.study-citation-box a:hover { text-decoration: underline; }
+.study-img-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.study-img { width: 100%; display: block; }
+
+/* PRICING */
+.pricing-section { padding: 80px 0; }
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 720px; margin: 48px auto 0; }
+.pricing-card { border: 1px solid var(--border); border-radius: 14px; padding: 36px 32px; text-align: center; }
+.pricing-card.featured { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(91,141,184,0.12); }
+.pricing-plan { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--body); margin-bottom: 16px; }
+.pricing-amount { font-size: 2.6rem; font-weight: 700; color: var(--dark); line-height: 1; margin-bottom: 4px; }
+.pricing-unit { font-size: 0.9rem; color: var(--body); margin-bottom: 24px; }
+.pricing-features { list-style: none; text-align: left; margin-bottom: 28px; }
+.pricing-features li { font-size: 0.875rem; color: var(--body); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-start; }
+.pricing-features li:last-child { border-bottom: none; }
+.pricing-features li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 7px; }
+.pricing-cta { display: block; background: var(--blue); color: var(--white); font-size: 0.9rem; font-weight: 600; padding: 12px 24px; border-radius: 100px; text-decoration: none; transition: background 0.15s; }
+.pricing-cta:hover { background: var(--blue-dark); }
+.pricing-trial-note { text-align: center; margin-top: 28px; font-size: 0.875rem; color: var(--body); }
+
+/* FAQ */
+.faq-section { padding: 80px 0; background: var(--light); }
+.faq-list { max-width: 720px; margin: 48px auto 0; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q { width: 100%; text-align: left; background: none; border: none; padding: 22px 0; font-size: 0.975rem; font-weight: 600; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: 'Inter', sans-serif; line-height: 1.4; }
+.faq-q:hover { color: var(--blue); }
+.faq-icon { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.9rem; color: var(--body); transition: transform 0.2s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); border-color: var(--blue); color: var(--blue); }
+.faq-a { font-size: 0.9rem; color: var(--body); line-height: 1.7; padding-bottom: 22px; display: none; }
+.faq-a a { color: var(--blue); text-decoration: none; }
+.faq-item.open .faq-a { display: block; }
+
+/* FOOTER */
+footer { padding: 40px 0; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
+.footer-logo { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--dark); font-size: 1.1rem; margin-bottom: 8px; }
+.footer-logo span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); margin-left: 1px; vertical-align: middle; position: relative; top: -1px; }
+.footer-tagline { font-size: 0.8rem; color: var(--body); }
+.footer-citation { max-width: 460px; font-size: 0.78rem; color: var(--body); line-height: 1.55; }
+.footer-citation a { color: var(--blue); text-decoration: none; }
+.footer-citation a:hover { text-decoration: underline; }
+
+.text-center { text-align: center; }
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+@media (max-width: 768px) {
+  .hero-grid, .study-grid, .screenshots-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .math-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+  .nav-dropdown-menu { display: none; }
+  .workflow-step { flex-direction: column; gap: 12px; }
+  .footer-inner { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Lucid<span></span></a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li class="nav-dropdown">
+          <a href="#workflow-patients">Workflows</a>
+          <div class="nav-dropdown-menu">
+            <a href="#workflow-patients">For Patients</a>
+            <a href="#workflow-therapists">For Therapists</a>
+          </div>
+        </li>
+        <li><a href="#cpt-codes">CPT Codes</a></li>
+        <li><a href="#the-math">The Math</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+      <a href="#pricing" class="nav-cta">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-eyebrow">For group therapy practices</span>
+        <h1 class="hero-headline">+$78,000/year across your practice.</h1>
+        <p class="hero-sub-number">10 clinicians. $39/seat/month. First 60 days free.</p>
+        <p class="hero-body">Lucid is a Mac desktop app that every clinician in your practice runs during their sessions. Each clinician's patients check in 2-3 times per week between sessions. Every touchpoint — session or check-in — automatically generates a CPT-billable mental health assessment. Nothing changes about how your clinicians practice.</p>
+        <div class="hero-actions">
+          <a href="#pricing" class="btn-primary">Start My Free Trial</a>
+          <a href="#the-math" class="btn-ghost">See the Practice Math</a>
+        </div>
+        <div class="trust-strip">
+          <span class="trust-item"><span class="trust-dot"></span>14,898-patient validation</span>
+          <span class="trust-item"><span class="trust-dot"></span>Published, Annals of Family Medicine</span>
+          <span class="trust-item"><span class="trust-dot"></span>HIPAA on-device, no BAA</span>
+          <span class="trust-item"><span class="trust-dot"></span>72% payer reimbursement</span>
+        </div>
+      </div>
+      <div>
+        <div class="hero-img-wrap">
+          <div class="browser-bar">
+            <div class="b-dot" style="background:#ff5f57;"></div>
+            <div class="b-dot" style="background:#ffbd2e;"></div>
+            <div class="b-dot" style="background:#28c840;"></div>
+          </div>
+          <img class="hero-app-img" src="../images/app-trends-view.png" alt="Lucid trends view — weekly averages, 126 readings, Depression PHQ-9 10.1 Minimal, Anxiety GAD-7 8.5 Mild">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE MATH STRIP -->
+<div class="math-strip" id="the-math">
+  <div class="container">
+    <div class="math-grid fade-in">
+      <div class="math-cell">
+        <p class="math-num">$649</p>
+        <p class="math-label">per clinician / month</p>
+        <p class="math-sub">new CPT revenue, 10 BHI patients</p>
+      </div>
+      <div class="math-cell">
+        <p class="math-num">$78K</p>
+        <p class="math-label">per year at 10 clinicians</p>
+        <p class="math-sub">BHI Standard (100 enrolled patients)</p>
+      </div>
+      <div class="math-cell">
+        <p class="math-num">13x</p>
+        <p class="math-label">return on investment</p>
+        <p class="math-sub">Lucid cost: $390/month at 10 seats</p>
+      </div>
+      <div class="math-cell">
+        <p class="math-num">60</p>
+        <p class="math-label">days free trial</p>
+        <p class="math-sub">no credit card, no commitment</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="container">
+    <p class="section-label">How It Works</p>
+    <h2 class="section-headline">One app. Every clinician. No new workflow.</h2>
+    <p class="section-sub">Each clinician in your practice installs Lucid independently. It runs locally on their Mac and never shares data across machines or clinicians.</p>
+    <div class="steps-grid fade-in">
+      <div class="step-card">
+        <p class="step-num">01</p>
+        <h3 class="step-title">Each clinician installs Lucid on their Mac</h3>
+        <p class="step-body">Five-minute setup per clinician. No shared server, no IT deployment, no EHR integration required. Each install is independent — data stays on each clinician's device.</p>
+        <span class="step-tag">Live same day</span>
+      </div>
+      <div class="step-card">
+        <p class="step-num">02</p>
+        <h3 class="step-title">Lucid runs in the background during every session</h3>
+        <p class="step-body">Clinicians open Lucid before the session starts. It analyzes patient voice passively. By the time the session ends, a PHQ-9 and GAD-7 correlated assessment has been generated — along with the CPT documentation to bill it.</p>
+        <span class="step-tag">Zero session overhead</span>
+      </div>
+      <div class="step-card">
+        <p class="step-num">03</p>
+        <h3 class="step-title">Patients check in 2-3 times per week between sessions</h3>
+        <p class="step-body">Each patient gets a check-in link. They speak into their browser for 60-90 seconds — no app, no account. Each check-in generates another billable assessment. 20 patients, 3 check-ins per week = 60 additional billing events per clinician, per week.</p>
+        <span class="step-tag">60 additional billing events/week</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW: PATIENTS -->
+<section class="workflow-section" id="workflow-patients">
+  <div class="container">
+    <div class="workflow-header fade-in">
+      <p class="eyebrow">Patient Workflow</p>
+      <h2>What your patients experience</h2>
+      <p>Six simple steps. No behavior change required. Lucid works quietly in the background while your patients go about their day.</p>
+    </div>
+    <div class="workflow-steps">
+      <div class="workflow-step fade-in">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Download Lucid</h3>
+          <p>Your patient downloads Lucid to their Mac. One installer, takes under a minute. No account creation, no email, no personal information collected.</p>
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Quick Setup</h3>
+          <p>A 2-minute onboarding: grant microphone permission, enroll their voice with a short reading passage. That's it — Lucid is ready.</p>
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Just Talk Normally</h3>
+          <p>Lucid listens passively throughout the day — calls, meetings, conversations. It analyzes voice patterns in real time and updates the dashboard with a composite Voice Score, clinical indicators (PHQ-9, GAD-7), and five voice dimensions.</p>
+          <img src="../images/app-session-dashboard.png" alt="Lucid dashboard showing Voice Score of 66, clinical indicators, and voice dimensions" class="step-image">
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Track Progress Over Time</h3>
+          <p>Patients can view their trends — daily, weekly, monthly, or yearly. The Trends view shows their average score, best day, total readings, current streak, and clinical indicator trajectories.</p>
+          <img src="../images/app-trends-view.png" alt="Lucid trends view showing 7-day Voice Score trend and clinical indicators" class="step-image">
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Share with Their Therapist</h3>
+          <p>When ready, the patient enters your pairing code in Settings. From that point forward, Lucid automatically sends encrypted pre-session reports before each appointment. The patient can revoke access at any time.</p>
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h3>Complete Privacy</h3>
+          <p>All voice processing happens entirely on the patient's device. No audio is ever transmitted, stored in the cloud, or accessible to anyone — including you. Only derived scores and patterns are shared, and only when the patient explicitly opts in.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW: THERAPISTS -->
+<section class="workflow-section" id="workflow-therapists">
+  <div class="container">
+    <div class="workflow-header fade-in">
+      <p class="eyebrow">Therapist Workflow</p>
+      <h2>What you see as the provider</h2>
+      <p>Objective voice data delivered before every session. Review in 60 seconds, bill two units, and walk into session with data-informed talking points.</p>
+    </div>
+    <div class="workflow-steps">
+      <div class="workflow-step fade-in">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Patient Connects</h3>
+          <p>Give your patient a 5-character pairing code. They enter it in their Lucid app. You receive a confirmation that they've linked — no software to install on your end, no portal to manage.</p>
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Automatic Pre-Session Brief</h3>
+          <p>Two hours before each scheduled appointment, you receive a Session Ready Brief via secure email. It's a single-page summary: Voice Score with 14-day trend, PHQ-9 and GAD-7 gauges, flagged patterns, and suggested conversation starters derived from the data.</p>
+          <img src="../images/session-ready-brief.png" alt="Session Ready Brief showing Voice Score, clinical snapshot, flagged patterns, and session talking points" class="step-image">
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>60-Second Review</h3>
+          <p>Scan the brief before your patient walks in. The layout is designed to read in under a minute: the Voice Score and trend tell you direction, the clinical gauges show severity, and the talking points give you an evidence-based way to open the conversation.</p>
+          <div class="step-quote">"Your stress score improved significantly since last session — that's real progress. But your data shows it's still much higher on weekdays than weekends. What's different about your weekdays right now?"</div>
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Data-Informed Sessions</h3>
+          <p>Instead of relying solely on self-report, you have objective between-session data. Patients often under-report improvements or miss patterns they can't see. The data gives you a more complete picture and helps surface what matters most.</p>
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Clinical Report for Documentation</h3>
+          <p>Access the full 3-page clinical report: Voice Score summary with confidence intervals, emotion profile analysis, linguistic markers table, notable patterns detected, and a complete billing documentation page with CPT code, outputs reviewed, and signature lines.</p>
+          <img src="../images/clinical-report-page1.png" alt="Clinical report showing Voice Score summary, clinical indicators, and voice dimensions" class="step-image">
+        </div>
+      </div>
+      <div class="workflow-step fade-in">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h3>Bill CPT 96127 x 2</h3>
+          <p>Each patient session generates two billable units of 96127 (Brief emotional/behavioral assessment). The documentation is pre-filled with assessment tool description, specific outputs reviewed, and clinical action checkboxes. Add your interpretation, sign, and submit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CPT CODES -->
+<section class="cpt-section" id="cpt-codes">
+  <div class="container">
+    <p class="section-label">Billing Codes</p>
+    <h2 class="section-headline">The exact codes Lucid generates.</h2>
+    <p class="cpt-intro">Your billing team submits these through your existing workflow — the same process you use today. No new payer contracts, no new credentialing, no billing software changes needed.</p>
+    <div class="fade-in">
+      <table class="cpt-table">
+        <thead>
+          <tr>
+            <th style="width:100px;">Code</th>
+            <th>Description</th>
+            <th style="width:150px;">Reimbursement</th>
+            <th style="width:160px;">When Generated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cpt-code">96127</span></td>
+            <td class="cpt-desc">Brief behavioral or emotional assessment — standardized instrument, scored report</td>
+            <td class="cpt-amount">$11–25</td>
+            <td class="cpt-when">Every session</td>
+          </tr>
+          <tr>
+            <td><span class="cpt-code">99484</span></td>
+            <td class="cpt-desc">Behavioral health integration (BHI) care management — 20+ min/month</td>
+            <td class="cpt-amount">$30–55</td>
+            <td class="cpt-when">Monthly, if criteria met</td>
+          </tr>
+          <tr>
+            <td><span class="cpt-code">99492</span></td>
+            <td class="cpt-desc">Initial psychiatric collaborative care management — first 70 min/month</td>
+            <td class="cpt-amount">$155–235</td>
+            <td class="cpt-when">First month of enrollment</td>
+          </tr>
+          <tr>
+            <td><span class="cpt-code">99493</span></td>
+            <td class="cpt-desc">Subsequent psychiatric collaborative care management — 60 min/month</td>
+            <td class="cpt-amount">$105–165</td>
+            <td class="cpt-when">Ongoing monthly</td>
+          </tr>
+          <tr>
+            <td><span class="cpt-code">99494</span></td>
+            <td class="cpt-desc">Add-on: each additional 30 min of BHI care management</td>
+            <td class="cpt-amount">$50–80</td>
+            <td class="cpt-when">When applicable</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="cpt-footer-note">72% of major commercial payers and Medicare reimburse these codes. Fewer than 5% of eligible practices are billing them today — not because payers won't pay, but because generating compliant documentation is too time-consuming without automation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="screenshots-section">
+  <div class="container">
+    <p class="section-label">The Software</p>
+    <h2 class="section-headline">What each clinician sees for each patient.</h2>
+    <p class="section-sub">After every session and every check-in, Lucid generates a scored assessment with Depression Risk (PHQ-9 correlated) and Anxiety Risk (GAD-7 correlated). That report is what produces the CPT documentation — automatically, without manual scoring.</p>
+    <div class="screenshots-grid fade-in">
+      <div class="screenshot-card">
+        <p class="screenshot-label">Per-session voice analysis</p>
+        <img class="screenshot-img" src="../images/app-session-dashboard.png" alt="Lucid session dashboard — voice score 66/Steady, Depression Risk 9.3 Minimal, Anxiety Risk 8.3 Mild">
+      </div>
+      <div class="screenshot-card">
+        <p class="screenshot-label">Patient trends — longitudinal tracking</p>
+        <img class="screenshot-img" src="../images/app-trends-view.png" alt="Lucid trends view — 7-day average 68, Depression PHQ-9 10.1, Anxiety GAD-7 8.5">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PER-CLINICIAN TABLE -->
+<section class="perclinician-section">
+  <div class="container">
+    <p class="section-label">The Math</p>
+    <h2 class="section-headline">Practice-level revenue by clinician count.</h2>
+    <p class="section-sub" style="margin-bottom:0;">At standard payer reimbursement rates, assuming 20 patients per clinician and 2 between-session check-ins per patient per week.</p>
+    <table class="clinician-table fade-in">
+      <thead>
+        <tr>
+          <th>Clinicians</th>
+          <th>Patients</th>
+          <th>New Revenue / Month</th>
+          <th>New Revenue / Year</th>
+          <th>Lucid Cost / Month</th>
+          <th>ROI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>10 BHI</td>
+          <td class="highlight-num">$649</td>
+          <td>$7,788</td>
+          <td>$50</td>
+          <td><span class="roi-badge">13x</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>50 BHI</td>
+          <td class="highlight-num">$3,247</td>
+          <td>$38,964</td>
+          <td>$195</td>
+          <td><span class="roi-badge">17x</span></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>100 BHI</td>
+          <td class="highlight-num">$6,494</td>
+          <td>$77,928</td>
+          <td>$390</td>
+          <td><span class="roi-badge">17x</span></td>
+        </tr>
+        <tr>
+          <td>25</td>
+          <td>250 BHI</td>
+          <td class="highlight-num">$16,235</td>
+          <td>$194,820</td>
+          <td>$975</td>
+          <td><span class="roi-badge">17x</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="6">Group pricing applies at 10+ seats. Revenue figures are estimates based on 72% payer approval at standard reimbursement rates. Actual results vary by payer mix and patient panel.</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+<!-- CLINICAL STUDY -->
+<section class="study-section" id="research">
+  <div class="container">
+    <div class="study-grid">
+      <div>
+        <p class="section-label">Clinical Validation</p>
+        <h2 class="section-headline">Peer-reviewed. Double-blind. 14,898 patients.</h2>
+        <p class="study-finding">The underlying voice biomarker model was evaluated in a cross-sectional study of 14,898 English-speaking adults in the US and Canada. Participants provided free-form speech (25+ seconds) and completed a self-reported PHQ-9.</p>
+        <p class="study-finding">At PHQ-9 cut-off score of 10 (moderate to severe depression), the model achieved <strong>sensitivity of 71.3%</strong> (95% CI: 69.0–73.5) and <strong>specificity of 72.5%</strong> (95% CI: 71.5–73.5). The study was conducted by Kintsugi Mindful Wellness and published January 2025.</p>
+        <p class="study-finding">The Trends view your clinicians use shows PHQ-9 and GAD-7 correlated scores across every session and check-in — continuous monitoring between appointments, not just a snapshot at session time.</p>
+
+        <div class="study-stat-row">
+          <div class="study-stat">
+            <p class="study-stat-num">14,898</p>
+            <p class="study-stat-label">Patients validated</p>
+          </div>
+          <div class="study-stat">
+            <p class="study-stat-num">71.3%</p>
+            <p class="study-stat-label">Sensitivity</p>
+          </div>
+          <div class="study-stat">
+            <p class="study-stat-num">72.5%</p>
+            <p class="study-stat-label">Specificity</p>
+          </div>
+          <div class="study-stat">
+            <p class="study-stat-num">244M</p>
+            <p class="study-stat-label">Model parameters</p>
+          </div>
+        </div>
+
+        <div class="study-citation-box">
+          <p><strong>Mazur A, Costantino H, Tom P, Wilson MP, Thompson RG.</strong> Evaluation of an AI-Based Voice Biomarker Tool to Detect Signals Consistent With Moderate to Severe Depression. <em>Ann Fam Med.</em> 2025 Jan 27;23(1):60-65.</p>
+          <p style="margin-top:8px;"><a href="https://doi.org/10.1370/afm.240091" target="_blank" rel="noopener">doi: 10.1370/afm.240091</a> &nbsp;&middot;&nbsp; PMID: 39806690 &nbsp;&middot;&nbsp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11772039/" target="_blank" rel="noopener">PMC11772039</a></p>
+        </div>
+      </div>
+      <div>
+        <div class="study-img-wrap">
+          <img class="study-img" src="../images/pubmed-study.png" alt="PubMed entry for the Annals of Family Medicine study — Kintsugi voice biomarker validation, 14,898 patients">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <p class="section-label text-center">Pricing</p>
+    <h2 class="section-headline text-center">Priced for practices of any size.</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-plan">Solo Practice</p>
+        <p class="pricing-amount">$50</p>
+        <p class="pricing-unit">per seat, per month</p>
+        <ul class="pricing-features">
+          <li>Unlimited in-session monitoring</li>
+          <li>Unlimited between-session check-ins</li>
+          <li>CPT documentation for all touchpoints</li>
+          <li>HIPAA-compliant, on-device processing</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#" class="pricing-cta">Start 60-Day Free Trial</a>
+      </div>
+      <div class="pricing-card featured">
+        <p class="pricing-plan">Group Practice</p>
+        <p class="pricing-amount">$39</p>
+        <p class="pricing-unit">per seat, per month</p>
+        <ul class="pricing-features">
+          <li>Everything in Solo</li>
+          <li>Practice-level billing report</li>
+          <li>Per-clinician CPT documentation</li>
+          <li>Priority onboarding for your team</li>
+          <li>Volume pricing above 25 seats</li>
+        </ul>
+        <a href="#" class="pricing-cta">Start 60-Day Free Trial</a>
+      </div>
+    </div>
+    <p class="pricing-trial-note">60-day free trial. No credit card required. If you don't bill at least one seat's cost in new CPT revenue during the trial, we'll extend it.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <p class="section-label text-center">Questions</p>
+    <h2 class="section-headline text-center">What practice owners ask.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">How does each clinician's data stay separate?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Each clinician installs Lucid on their own Mac. Data is stored locally on their device and is never transmitted to a server or shared across clinicians. There's no central practice database — each installation is independent. This also means there's no single point of failure or compliance risk across the practice.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do all my clinicians need to adopt it at once?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. You can start with one or two clinicians and expand. Billing is per-seat ($39/seat for groups) — you only pay for the seats you activate. Annual plan: pay 10 months, get 12.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is patient data kept separate per clinician?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes. Patient data lives on the clinician's machine and is never accessible to other clinicians, to Lucid, or to any third party. The between-session check-in link each patient receives connects only to their clinician's Lucid instance.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do we need to change our billing process?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. Lucid generates the CPT documentation. Your billing team submits the codes through the same process you use today — whether that's manual entry into your EHR, a clearinghouse, or a billing service. Nothing changes on the billing side except that there are more billable events to submit.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What does onboarding look like for a 10-clinician practice?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We walk each clinician through a 15-minute setup call. Most practices are fully onboarded across all clinicians within one week. The patient-facing check-in setup takes another day — we help you configure the check-in links and communication template to send patients.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What if a payer doesn't cover these CPT codes?<span class="faq-icon">+</span></button>
+        <div class="faq-a">72% of major payers currently cover these codes. For payers that don't, the codes simply don't get paid — there's no additional cost or risk to your practice for submitting them. Over the past two years, payer coverage of these behavioral health integration codes has increased significantly and is expected to continue improving.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-logo">Lucid<span></span></p>
+        <p class="footer-tagline">Voice wellness monitoring for therapy practices.</p>
+        <p class="footer-tagline" style="margin-top:4px;font-size:0.75rem;">Mac only. All processing on-device.</p>
+      </div>
+      <div class="footer-citation">
+        <p><strong>Clinical reference:</strong> Mazur A, Costantino H, Tom P, Wilson MP, Thompson RG. Evaluation of an AI-Based Voice Biomarker Tool to Detect Signals Consistent With Moderate to Severe Depression. <em>Ann Fam Med.</em> 2025 Jan 27;23(1):60-65. <a href="https://doi.org/10.1370/afm.240091" target="_blank" rel="noopener">doi: 10.1370/afm.240091</a>. PMID: 39806690.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 1px 12px rgba(0,0,0,0.07)' : 'none';
+}, { passive: true });
+</script>
+</body>
+</html>
